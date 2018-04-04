@@ -1,3 +1,6 @@
+import 'bootstrap/dist/css/bootstrap.css';
+import 'font-awesome/css/font-awesome.css';
+
 /// <reference types="aurelia-loader-webpack/src/webpack-hot-interface"/>
 // we want font-awesome to load as soon as possible to show the fa-spinner
 import {Aurelia} from 'aurelia-framework'
