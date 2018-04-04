@@ -1,22 +1,29 @@
-import {Todo} from './todo';
+import { Router, RouterConfiguration } from 'aurelia-router';
+import { PLATFORM } from 'aurelia-pal';
+import {WebAPI} from './web-api';
+import {inject} from 'aurelia-framework';
 
+@inject(WebAPI)
 export class App {
-  heading = 'Todos';
-  todos: Todo[] = [];
-  todoDescription: string = '';
+  router: Router;
 
-  addTodo() {
-    if (this.todoDescription) {
-      this.todos.push(new Todo(this.todoDescription));
-      this.todoDescription = '';
-    }
-  }
+  constructor(public api: WebAPI) {}
 
-  removeTodo(todo) {
-    let index = this.todos.indexOf(todo);
+  configureRouter(config: RouterConfiguration, router: Router) {
+    config.title = 'Contacts';
 
-    if (index > 0) {
-      this.todos.splice(index, 1);
-    }
+    config.map([
+      {
+        route: '',
+        moduleId:  PLATFORM.moduleName('no-selection'),
+        title: 'Select'
+      }, {
+        route: 'contacts/:id',
+        moduleId: PLATFORM.moduleName('contact-detail'),
+        name: 'contacts'
+      }
+    ]);
+
+    this.router = router;
   }
 }
